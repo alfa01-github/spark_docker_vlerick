@@ -20,7 +20,7 @@ What is the difference between those two approaches?
 docker pull devopsdockeruh/simple-lala-service:tagname
 docker tag devopsdockeruh/simple-lala-service:tagname image1:tagname
 docker images
-docker run image1:ubuntu
+docker run image1:tagname
 docker ps -a
 docker exec -it containerNAME /bin/bash
 docker stop
