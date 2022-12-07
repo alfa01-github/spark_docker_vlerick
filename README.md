@@ -1,7 +1,6 @@
-Okay, editing again!
-# Building solid data pipelines with PySpark
+# Building solid data pipelines with PySpark in Vlerick Class
 
-📚 A course brought to you by the [Data Minded Academy].
+📚 A course brought to you by the [Data Minded Academy]. Thank you!
 
 ## Context
 
