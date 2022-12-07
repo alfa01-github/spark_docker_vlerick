@@ -25,3 +25,4 @@ docker ps -a
 docker exec -it containerNAME /bin/bash
 docker stop
 docker ps
+DONE!
