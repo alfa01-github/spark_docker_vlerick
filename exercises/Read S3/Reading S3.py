@@ -1,4 +1,7 @@
-#SECTION ONE OF THE ASSIGNMENT
+# PREREQUISITES FOR DOCKER?
+RUN python -m pip install -r requirementsfile.txt
+
+# SECTION ONE OF THE ASSIGNMENT
 import os
 print(os.environ["AWS_ACCESS_KEY_ID"])
 
@@ -21,10 +24,13 @@ dfpre.show()
 dfafter = spark.read.csv(f"s3a://{BUCKET}/{KEYafter}", header=True)
 dfafter.show()
 
-#SECTION TWO OF THE ASSIGNMENT
+# SECTION TWO OF THE ASSIGNMENT
 
 import pandas as pd 
 
 pre = dfpre.toPandas()
 after = dfafter.toPandas()
+
+# SECTION FIVE OF THE ASSIGNMENT
+
 
