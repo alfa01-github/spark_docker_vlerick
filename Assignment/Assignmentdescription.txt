@@ -1,0 +1,32 @@
+The assignment now reads as this:
+
+The two data files after_release.csv and pre_release.csv have been uploaded to the (private) bucket dmacademy-course-assets, under the keys vlerick/after_release.csv and vlerick/pre_release.csv respectively. 
+
+Your assignment consists of the following steps:
+
+1. Read the CSV data from this S3 bucket using PySpark.  
+2. Convert the Spark DataFrames to Pandas DataFrames.
+3. Rerun the same ML training and scoring logic that you had created prior to this class, starting with the Pandas DataFrames you got in step 2.
+4. Convert the dataset of results back to a Spark DataFrame.
+5. Write this DataFrame to the same S3 bucket dmacademy-course-assets under the prefix vlerick/<your_name>/ as JSON lines. It is likely Spark will create multiple files there. That is entirely normal and inherent to the distributed processing character of Spark.
+6. Package this set of code in a Docker image that you must push to the AWS elastic container registry Links to an external site.(ECR) bearing the name 338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions and with a tag that starts with your first name.
+
+
+The Docker image that you build locally (I recommend you work in your Gitpod environments) must produce the output files on S3 when I start it on AWS Batch (which is a service where I just throw Docker images at and it will run these) and assign it the necessary privileges to read and write from and to that S3 bucket. For your own validation, you should run the Docker container generated from that image and pass it the two environment variables AWS_ACCESS_KEY_ID=(will be sent to you in private) and AWS_SECRET_ACCESS_KEY=(will be sent to you in private). 
+
+These exact variables can also be used by you to verify that after running your container, you should see the files appearing in that bucket. To do so, you must install the AWS CLI Links to an external site.in your gitpod environment and configure it (run `aws configure` and provide the access key and secret access key. Region is "eu-west-1", output format is irrelevant). 
+
+You must complete this step anyway if you want to authenticate to ECR (prior to pushing your Docker image), as it requires you to run the command 
+
+aws ecr get-login-password --region eu-west-1 | \
+docker login \
+--username AWS \
+--password-stdin \
+338791806049.dkr.ecr.eu-west-1.amazonaws.com/vlerick_cloud_solutions
+
+Keep in mind that the Docker container should not have to rely on environment variables for it to get access to the (private) bucket: I will grant AWS Batch the necessary permissions and thus won't need the environment variables, but you should still add both options. That means you'll need to detect in Python whether those environment variables exist in the Docker container at runtime - if they don't, you have to assume authorization has been granted in a different way and you should thus rely on a different AWS credentialsprovider (see slide 39 of the slide deck).
+
+Reminder: do not share the AWS keys publically. We will be alerted automatically by AWS's web crawlers that keys related to our account are on the internet, even if they're harmless (no bitcoin mining for you). 
+
+Sharing of keys will immediately reduce any mark you get on this course by 5 points or 25% of the total.
+

@@ -1,8 +1,9 @@
 FROM python:3.8-slim-buster
+LABEL allison
 
 #Create non-root user
 RUN useradd -ms /bin/bash python-api
-USER pyhton-api
+USER python-api
 
 #Copy the source files into the container
 WORKDIR /repo
@@ -12,9 +13,14 @@ COPY . /repo
 RUN python -m pip install -r requirementsfile.txt
 RUN pip install --upgrade pip && \
     pip install -r requirementsfile.txt 
+RUN assignmentfile.py
 
-#Define the command to be run
-#when the container is started
+#Install the AWS CLI and clean up files?
+
+#Define the command to be run when the container is started
 EXPOSE 8080
-ENTRYPOINT ["python"]
-CMD ["ETL-project-Allison.py"]
+ENTRYPOINT ["python3"]
+CMD ["ETL-project-allison.py"]
+
+#Build docker image using dockerfile
+docker image build -t dockerimage
