@@ -17,4 +17,4 @@ RUN pip install --upgrade pip && \
 #when the container is started
 EXPOSE 8080
 ENTRYPOINT ["python"]
-CMD ["ETL-project.py"]
+CMD ["ETL-project-Allison.py"]

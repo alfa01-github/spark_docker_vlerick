@@ -12,7 +12,7 @@ KEYpre = "vlerick/pre_release.csv"
 
 config = {
     "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
-    "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.InstanceProfileCredentialsProvider",
+    "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
 }
 
 conf = SparkConf().setAll(config.items())
@@ -33,8 +33,11 @@ after = dfafter.toPandas()
 # SECTION THREE OF THE ASSIGNMENT
 
 # SECTION FOUR OF THE ASSIGNMENT
-df = spark.createDataFrame(OUTPUT)
+df = spark.createDataFrame(pre)
 
+# SECTION FIVE OF THE ASSIGNMENT
+df.write.json("s3a://dmacademy-course-assets/vlerick/allison/predictions.csv")
 
+# SECTION SIX OF THE ASSIGNMENT
 
 
