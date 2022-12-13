@@ -1,6 +1,5 @@
 # SECTION ONE OF THE ASSIGNMENT
 import os
-print(os.environ["AWS_ACCESS_KEY_ID"])
 
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
@@ -16,10 +15,16 @@ BUCKET = "dmacademy-course-assets"
 KEYafter = "vlerick/after_release.csv"
 KEYpre = "vlerick/pre_release.csv"
 
-config = {
-    "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
-    "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.InstanceProfileCredentialsProvider",
-}
+if len(os.environ.get('AWS_SECRET_ACCESS_KEY')) < 1:
+
+    config = {
+        "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
+        "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.InstanceProfileCredentialsProvider"
+    }
+else:
+    config = {
+        "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1"
+    }
 
 conf = SparkConf().setAll(config.items())
 spark = SparkSession.builder.config(conf=conf).getOrCreate()
