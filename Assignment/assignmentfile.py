@@ -15,16 +15,19 @@ BUCKET = "dmacademy-course-assets"
 KEYafter = "vlerick/after_release.csv"
 KEYpre = "vlerick/pre_release.csv"
 
-if len(os.environ.get('AWS_SECRET_ACCESS_KEY')) < 1:
-
+if 'AWS_SECRET_ACCESS_KEY' in os.environ:
+    print("credentials are present in the environment")
     config = {
         "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
-        "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.InstanceProfileCredentialsProvider"
+        "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
     }
 else:
+    print("you have no credentials in the environment")
     config = {
-        "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1"
+        "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
+        "spark.hadoop.fs.s3a.aws.credentials.provider": "com.amazonaws.auth.InstanceProfileCredentialsProvider",
     }
+    
 
 conf = SparkConf().setAll(config.items())
 spark = SparkSession.builder.config(conf=conf).getOrCreate()
