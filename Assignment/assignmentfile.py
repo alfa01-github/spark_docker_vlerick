@@ -18,7 +18,7 @@ KEYpre = "vlerick/pre_release.csv"
 
 config = {
     "spark.jars.packages": "org.apache.hadoop:hadoop-aws:3.3.1",
-    "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider",
+    "spark.hadoop.fs.s3a.aws.credentials.provider": "org.apache.hadoop.fs.s3a.InstanceProfileCredentialsProvider",
 }
 
 conf = SparkConf().setAll(config.items())
